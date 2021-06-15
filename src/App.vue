@@ -2,12 +2,7 @@
   <div id="app">
     <div class="ui two column centered grid">
       <div class="two column centered row">
-        <Wallet
-          class="column"
-          :savedGifs="savedItens"
-          @gifDelete="gifDelete"
-          @gifEdit="gifEdit"
-        />
+        <Wallet class="column" :savedGifs="savedItens" @gifDelete="gifDelete" />
       </div>
       <div class="two column centered row">
         <Search @SearchData="initialize" />
@@ -18,10 +13,7 @@
           @gifSaved="saveGif"
           @callNewPage="callNewPage"
         />
-        <div
-          style="margin-top: 50px"
-          class="ui active centered inline loader"
-        ></div>
+        <div style="margin-top: 50px" class="ui active centered inline loader"></div>
       </div>
     </div>
   </div>
@@ -63,39 +55,10 @@ export default {
   },
 
   methods: {
-    // async initialize() {
-    //   await this.$http
-    //     .get("trending", {
-    //       params: {
-    //         api_key: this.api_key,
-    //         limit: "15",
-    //         offset: this.pageNumber,
-    //       },
-    //     })
-    //     .then((resp) => {
-    //       resp.data.data.forEach(this.extract);
-    //       console.log(resp.data);
-    //     });
-    // },
-
-    // async searchGif(item) {
-    //   this.itens = [];
-    //   await this.$http
-    //     .get("search", {
-    //       params: {
-    //         api_key: this.api_key,
-    //         limit: "3",
-    //         q: item,
-    //       },
-    //     })
-    //     .then((resp) => {
-    //       resp.data.data.forEach(this.extract);
-    //       console.log(this.itens);
-    //     });
-    // },
-
     async initialize(item) {
-      console.log(item);
+      // await this.$JSON_SERVER.get().then((resp) => {
+      //   resp.data.forEach(this.extractFromJson);
+      // });
 
       if (!item) {
         await this.$http
@@ -108,7 +71,6 @@ export default {
           })
           .then((resp) => {
             resp.data.data.forEach(this.extract);
-            // console.log(resp.data);
           });
       } else {
         this.itens = [];
@@ -123,40 +85,37 @@ export default {
           })
           .then((resp) => {
             resp.data.data.forEach(this.extract);
-            // console.log(this.itens);
           });
       }
     },
 
-    teste() {
-      console.log(this.savedItens);
-    },
-
-    saveGif(item) {
-      console.log(this.itens[item]);
-      // this.savedItens.push(this.itens[item])
+    async saveGif(item) {
       this.savedItens.push(this.itens[item]);
-      // console.log(this.savedItens)
+      // await this.$JSON_SERVER.post("", this.itens[item]).then(() => {
+      //  this.getItensSaved(item);
+      // });
     },
-    gifDelete(item) {
+    async gifDelete(item) {
       this.savedItens.splice(item, 1);
+      // await this.$JSON_SERVER.delete(`/${item}`).then((resp) => {
+      // });
     },
 
-    gifEdit(item) {
-      console.log(item);
-      console.log(this.savedItens[item]);
+    async getItensSaved(item) {
+      await this.$JSON_SERVER.get(`/${item + 1}`).then((resp) => {
+        this.savedItens.push(resp.data);
+        // resp.data.forEach(this.extractFromJson);
+      });
     },
 
     callNewPage() {
       this.initialize();
       this.pageNumber++;
-      console.log("bingo");
     },
 
     extract(item) {
       return this.itens.push({
         src: item.images.fixed_height.url,
-        url: item.url,
         type: item.type,
         username: item.username,
         title: item.title,
@@ -164,6 +123,16 @@ export default {
         originalH: item.images.original.height,
       });
     },
+    // extractFromJson(item) {
+    //   return this.savedItens.push({
+    //     src: item.src,
+    //     type: item.type,
+    //     username: item.username,
+    //     title: item.title,
+    //     originalW: item.originalW,
+    //     originalH: item.originalH,
+    //   });
+    // },
   },
 };
 </script>
@@ -175,9 +144,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: #cdb4db
-
-;
+  background-color: #bcbabd;
 }
 .forceHeight {
   min-height: 100vh;

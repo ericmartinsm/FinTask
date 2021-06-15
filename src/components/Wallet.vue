@@ -5,7 +5,7 @@
         <Card
           class="card"
           v-for="(iten, i) in savedGifs"
-          :key="iten.url"
+          :key="iten.i"
           :gifInfo="iten"
           :fromWallet="true"
           @gifEdit="$emit('gifEdit', i)"
@@ -14,14 +14,13 @@
         />
       </div>
       <button
-      style="z-index: 99; margin-bottom: 30px"
-      class="ui bounce red button"
-      @click="hasClass"
-    >
-      🛒 {{ savedGifs.length }}
-    </button>
+        style="z-index: 99; margin-bottom: 30px"
+        class="ui bounce red button"
+        @click="hasClass"
+      >
+        🛒 {{ savedGifs.length }}
+      </button>
     </div>
-    
   </div>
 </template>
 
@@ -38,7 +37,6 @@ export default {
 
       if (this.savedGifs.length > 0) {
         if (element.classList.contains("open")) {
-          console.log("abacate");
           this.$refs.elemento.classList.add("close");
           this.$refs.elemento.classList.remove("open");
           this.$refs.gif.classList.add("env");

@@ -6,6 +6,9 @@ Vue.use({
 
         Vue.prototype.$http = axios.create({
             baseURL: 'https://api.giphy.com/v1/gifs/',
+        }),
+        Vue.prototype.$JSON_SERVER = axios.create({
+            baseURL: 'http://localhost:5001/posts',
         })
     }
 })
