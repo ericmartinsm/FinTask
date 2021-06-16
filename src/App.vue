@@ -70,7 +70,6 @@ export default {
           })
           .then((resp) => {
             resp.data.data.forEach(this.extract);
-            console.log("deus");
           })
           .catch((error) => {
             console.log(error);
