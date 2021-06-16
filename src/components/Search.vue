@@ -1,7 +1,6 @@
 <template>
-  <div style="margin-bottom: 50px;">
+  <div style="margin-bottom: 50px">
     <div class="ui icon input">
-      
       <div class="ui icon input">
         <input
           v-on:keydown.enter="emitSearch"
@@ -28,5 +27,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

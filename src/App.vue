@@ -56,10 +56,6 @@ export default {
 
   methods: {
     async initialize(item) {
-      // await this.$JSON_SERVER.get().then((resp) => {
-      //   resp.data.forEach(this.extractFromJson);
-      // });
-
       if (!item) {
         await this.$http
           .get("trending", {
@@ -91,20 +87,14 @@ export default {
 
     async saveGif(item) {
       this.savedItens.push(this.itens[item]);
-      // await this.$JSON_SERVER.post("", this.itens[item]).then(() => {
-      //  this.getItensSaved(item);
-      // });
     },
     async gifDelete(item) {
       this.savedItens.splice(item, 1);
-      // await this.$JSON_SERVER.delete(`/${item}`).then((resp) => {
-      // });
     },
 
     async getItensSaved(item) {
       await this.$JSON_SERVER.get(`/${item + 1}`).then((resp) => {
         this.savedItens.push(resp.data);
-        // resp.data.forEach(this.extractFromJson);
       });
     },
 
@@ -123,16 +113,6 @@ export default {
         originalH: item.images.original.height,
       });
     },
-    // extractFromJson(item) {
-    //   return this.savedItens.push({
-    //     src: item.src,
-    //     type: item.type,
-    //     username: item.username,
-    //     title: item.title,
-    //     originalW: item.originalW,
-    //     originalH: item.originalH,
-    //   });
-    // },
   },
 };
 </script>
