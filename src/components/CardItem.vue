@@ -3,7 +3,7 @@
     <div class="ui fluid image" style="z-index: 12">
       <div
         class="ui left ribbon label statusCard"
-        style="margin-top: 110px; max-width: 50px"
+        style="margin-top: 20vh; max-width: 50px"
       >
         <i v-if="!expand" class="gavel icon"></i>
         <input v-model="gifInfo.originalW" v-if="expand" type="text" />
@@ -11,7 +11,7 @@
       </div>
       <div
         class="ui right ribbon label statusCard"
-        style="margin-top: 140px; max-width: 50px"
+        style="margin-top: 24vh; max-width: 50px"
       >
         <i v-if="!expand" class="first aid icon"></i>
         <input v-model="gifInfo.originalH" v-if="expand" type="text" />
