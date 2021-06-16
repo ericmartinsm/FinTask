@@ -37,7 +37,7 @@
         id="addButton"
         class="circular ui icon button"
       >
-        <i @click="teste" class="plus icon"></i>
+        <i class="plus icon"></i>
       </button>
     </div>
     <div v-if="fromWallet">
@@ -46,7 +46,7 @@
         id="delButton"
         class="circular ui icon button"
       >
-        <i @click="teste" class="minus icon"></i>
+        <i class="minus icon"></i>
       </button>
     </div>
     <div @click="editBtn" v-if="fromWallet" style="z-index: 100">
@@ -55,7 +55,7 @@
         id="editButton"
         class="circular ui icon button"
       >
-        <i @click="teste" class="pencil alternate icon"></i>
+        <i class="pencil alternate icon"></i>
       </button>
     </div>
   </div>
@@ -65,7 +65,6 @@
 export default {
   data: () => ({
     expand: false,
-    abc: false,
   }),
 
   props: ["gifInfo", "fromWallet"],
