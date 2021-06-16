@@ -13,7 +13,10 @@
           @gifSaved="saveGif"
           @callNewPage="callNewPage"
         />
-        <div style="margin-top: 50px" class="ui active centered inline loader"></div>
+        <div
+          style="margin-top: 50px"
+          class="ui active centered inline loader"
+        ></div>
       </div>
     </div>
   </div>
@@ -34,7 +37,7 @@ export default {
     api_key: "fKBiqixYUcXzaAMUl8G2iV6jY4bk0HBv",
     itens: [],
     savedItens: [],
-    pageNumber: 0,
+    pageNumber: 1,
     numberPerPage: 18,
   }),
 
@@ -67,6 +70,10 @@ export default {
           })
           .then((resp) => {
             resp.data.data.forEach(this.extract);
+            console.log("deus");
+          })
+          .catch((error) => {
+            console.log(error);
           });
       } else {
         this.itens = [];
@@ -81,6 +88,9 @@ export default {
           })
           .then((resp) => {
             resp.data.data.forEach(this.extract);
+          })
+          .catch((error) => {
+            console.log(error);
           });
       }
     },
