@@ -1,89 +1,62 @@
 <template>
   <div class="card">
-    <div v-if="!expand" class="ui fluid image" style="z-index: 12">
-      <div class="ui left ribbon label statusCard" style="margin-top: 160px;">
-        <i class="gavel icon"></i> Attack {{ gifInfo.originalW }}
-      </div>
+    <div class="ui fluid image" style="z-index: 12">
       <div
         class="ui left ribbon label statusCard"
-        style="margin-top: 190px; min-width: 140px"
+        style="margin-top: 110px; max-width: 50px"
       >
-        <i class="first aid icon"></i> Defesa {{ gifInfo.originalH }}
+        <i v-if="!expand" class="gavel icon"></i>
+        <input v-model="gifInfo.originalW" v-if="expand" type="text" />
+        <span v-if="!expand"> Attack {{ gifInfo.originalW }}</span>
       </div>
       <div
-        class="ui left ribbon statusCard label"
-        style="margin-top: 220px; min-width: 150px"
+        class="ui right ribbon label statusCard"
+        style="margin-top: 140px; max-width: 50px"
       >
-        <i class="fire icon"></i> Skill {{ gifInfo.type }}
+        <i v-if="!expand" class="first aid icon"></i>
+        <input v-model="gifInfo.originalH" v-if="expand" type="text" />
+        <span v-if="!expand"> Defense {{ gifInfo.originalH }} </span>
+        <div @click="editBtn" v-if="expand">
+          <button
+            @click="$emit('gifSaved', gifInfo)"
+            id="saveEditedGif"
+            class="circular ui icon button"
+          >
+            <i class="save icon"></i>
+          </button>
+        </div>
       </div>
     </div>
 
     <div class="image ui">
       <img id="card-format" :src="gifInfo.src" />
     </div>
-    <!--<div class="content">
-        <a class="header">{{ gifInfo.title }}</a>
-        <div class="meta">
-          <span class="date">Created by: {{ gifInfo.username }}</span>
-        </div>
-      </div>-->
-
-    <div class="extra content right aligned">
-      <a>
-        <button
-          class="ui statusCard icon button"
-          v-if="!fromWallet"
-          @click="$emit('gifSaved', gifInfo)"
-        >
-          <i class="plus icon"></i>
-        </button>
-      </a>
-      <a>
-        <button
-          class="ui statusCard icon button"
-          v-if="fromWallet"
-          @click="$emit('gifDelete', gifInfo)"
-        >
-          <i class="minus icon"></i>
-        </button>
-      </a>
-      <a @click="editBtn">
-        <button
-          class="ui statusCard icon button"
-          v-if="fromWallet"
-          @click="$emit('gifEdit', gifInfo)"
-        >
-          <i class="pencil alternate icon"></i>
-        </button>
-      </a>
-      <div v-if="expand" class="inputEdit center aligned row">
-        <div style="margin-bottom: 4px; margin-top: 5px" class="ui input">
-          <input v-model="gifInfo.originalW" type="text" placeholder="Search..." />
-        </div>
-
-        <div class="ui input">
-          <input
-            style="margin-bottom: 5px"
-            v-model="gifInfo.originalH"
-            type="text"
-            placeholder="Search..."
-          />
-        </div>
-        <div class="ui input">
-          <input
-            style="margin-bottom: 5px"
-            v-model="gifInfo.username"
-            type="text"
-            placeholder="Search..."
-          />
-        </div>
-        <a @click="editBtn">
-          <div @click="$emit('gifSaved', gifInfo)" class="ui bottom button">
-            <i class="save icon"></i>
-            Save
-          </div>
-        </a>
-      </div>
+    <div v-if="!fromWallet">
+      <button
+        @click="$emit('gifSaved', gifInfo)"
+        id="addButton"
+        class="circular ui icon button"
+      >
+        <i @click="teste" class="plus icon"></i>
+      </button>
+    </div>
+    <div v-if="fromWallet">
+      <button
+        @click="$emit('gifDelete', gifInfo)"
+        id="delButton"
+        class="circular ui icon button"
+      >
+        <i @click="teste" class="minus icon"></i>
+      </button>
+    </div>
+    <div @click="editBtn" v-if="fromWallet" style="z-index: 100">
+      <button
+        @click="$emit('gifEdit', gifInfo)"
+        id="editButton"
+        class="circular ui icon button"
+      >
+        <i @click="teste" class="pencil alternate icon"></i>
+      </button>
     </div>
   </div>
 </template>
@@ -92,6 +65,7 @@
 export default {
   data: () => ({
     expand: false,
+    abc: false,
   }),
 
   props: ["gifInfo", "fromWallet"],
@@ -105,19 +79,54 @@ export default {
 
 <style>
 #card-format {
-  height: 210px;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+  height: 30vh;
+  border-radius: 5px;
 }
+#saveEditedGif {
+  position: absolute;
+  font-size: 8px;
+  right: 0;
+  top: 7px;
+}
+
 .card {
   -webkit-animation: fadeIn 0.8s ease-in-out;
   -moz-animation: fadeIn 0.8s ease-in-out;
   -o-animation: fadeIn 0.8s ease-in-out;
   animation: fadeIn 0.8s ease-in-out;
-  min-height: 270px !important;
-  background-color: #a2d2ff !important;
+  background-color: #a2d2ff8f !important;
+  position: relative;
+  height: 30vh;
+}
+.card:hover .statusCard {
+  visibility: visible;
 }
 .statusCard {
   background-color: #fff !important;
+  visibility: hidden;
+}
+#editButton,
+#delButton,
+#addButton {
+  position: absolute;
+  align-self: center;
+  font-size: 12px;
+  color: #fff;
+  top: -13px;
+  z-index: 99;
+}
+
+#addButton {
+  right: -13px;
+  background-color: rgb(21, 114, 18);
+}
+
+#editButton {
+  right: -13px;
+  background-color: rgb(92, 88, 88);
+}
+#delButton {
+  left: -13px;
+  background-color: rgb(243, 9, 9);
 }
 </style>

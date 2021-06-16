@@ -1,5 +1,5 @@
 <template>
-  <div ref="elemento" style="margin-top: 30px; height: auto">
+  <div ref="element" style="margin-top: 30px; height: auto">
     <div class="ui link grid centered">
       <div ref="gif" class="ui link cards three column row env">
         <Card
@@ -33,17 +33,17 @@ export default {
   },
   methods: {
     hasClass() {
-      const element = this.$refs.elemento;
+      const element = this.$refs.element;
 
       if (this.savedGifs.length > 0) {
         if (element.classList.contains("open")) {
-          this.$refs.elemento.classList.add("close");
-          this.$refs.elemento.classList.remove("open");
+          this.$refs.element.classList.add("close");
+          this.$refs.element.classList.remove("open");
           this.$refs.gif.classList.add("env");
           this.$refs.gif.classList.remove("block");
         } else {
-          this.$refs.elemento.classList.add("open");
-          this.$refs.elemento.classList.remove("close");
+          this.$refs.element.classList.add("open");
+          this.$refs.element.classList.remove("close");
           this.$refs.gif.classList.add("block");
           this.$refs.gif.classList.remove("env");
         }
